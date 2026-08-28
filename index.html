@@ -1,47 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TolTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Dark is the default ground — matches the tool being sold, and the
-       late-night-grind energy of the audience. */
-    --bg: #14120f;
-    --panel: #1e1b17;
-    --panel-2: #262220;
-    --border: #3a342d;
-    --text: #f5efe4;
-    --muted: #b8ad9c;
-    --accent: #ff7a29;      /* jeepney mango-orange */
-    --accent-ink: #1a0f05;  /* text sitting on top of accent */
-    --accent-2: #1fc0ac;    /* Philippine-sea teal */
-    --accent-2-ink: #06211d;
-    --shadow: 0 20px 50px -20px rgba(0,0,0,.55);
+    /* Charcoal-and-brass: a quieter, more expensive-feeling ground than the
+       earlier mango/teal pairing -- one restrained metallic accent instead
+       of two competing bright hues. */
+    --bg: #0b0c0f;
+    --panel: #15171c;
+    --panel-2: #1c1f26;
+    --border: #2b2f38;
+    --text: #eef0f3;
+    --muted: #9aa1ad;
+    --accent: #c9a24b;      /* brushed brass */
+    --accent-ink: #1c1608;  /* text sitting on top of accent */
+    --accent-2: #7d90a8;    /* cool steel, secondary/quiet accent */
+    --accent-2-ink: #0d1520;
+    --shadow: 0 24px 60px -24px rgba(0,0,0,.6);
   }
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-      --bg: #faf5ec;
-      --panel: #fffdf9;
-      --panel-2: #f3ecdf;
-      --border: #e4d9c5;
-      --text: #2a2420;
-      --muted: #6b6156;
-      --accent: #e8621a;
-      --accent-ink: #fff8f0;
-      --accent-2: #0e8f82;
-      --accent-2-ink: #f0fbf9;
-      --shadow: 0 20px 50px -24px rgba(60,40,20,.25);
+      --bg: #f7f7f5;
+      --panel: #ffffff;
+      --panel-2: #f0f0ee;
+      --border: #dfe0dd;
+      --text: #1c1d1f;
+      --muted: #6b6f76;
+      --accent: #a3812f;
+      --accent-ink: #fffaf0;
+      --accent-2: #4f6483;
+      --accent-2-ink: #f3f6fa;
+      --shadow: 0 24px 60px -28px rgba(20,20,25,.18);
     }
   }
   :root[data-theme="light"] {
-    --bg: #faf5ec;
-    --panel: #fffdf9;
-    --panel-2: #f3ecdf;
-    --border: #e4d9c5;
-    --text: #2a2420;
-    --muted: #6b6156;
-    --accent: #e8621a;
-    --accent-ink: #fff8f0;
-    --accent-2: #0e8f82;
-    --accent-2-ink: #f0fbf9;
-    --shadow: 0 20px 50px -24px rgba(60,40,20,.25);
+    --bg: #f7f7f5;
+    --panel: #ffffff;
+    --panel-2: #f0f0ee;
+    --border: #dfe0dd;
+    --text: #1c1d1f;
+    --muted: #6b6f76;
+    --accent: #a3812f;
+    --accent-ink: #fffaf0;
+    --accent-2: #4f6483;
+    --accent-2-ink: #f3f6fa;
+    --shadow: 0 24px 60px -28px rgba(20,20,25,.18);
   }
 
   * { box-sizing: border-box; }
@@ -49,11 +58,11 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Inter', -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.55;
     overflow-x: hidden;
   }
-  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; text-wrap: balance; margin: 0; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, "Times New Roman", serif; text-wrap: balance; margin: 0; }
   .eyebrow {
     font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
     color: var(--accent-2);
@@ -67,7 +76,7 @@
   }
   .logo { display: flex; align-items: baseline; gap: 10px; }
   .logo b {
-    font-family: Georgia, serif; font-size: 22px; font-weight: 700; letter-spacing: -.01em;
+    font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 700; letter-spacing: -.01em;
   }
   .logo b span { color: var(--accent); }
   .logo small { color: var(--muted); font-size: 12.5px; }
@@ -80,7 +89,11 @@
     opacity: .16; transform: rotate(-12deg); border-radius: 60px;
     filter: blur(2px);
   }
-  .hero-inner { position: relative; max-width: 640px; }
+  .hero-grid {
+    position: relative; display: grid; grid-template-columns: minmax(0, 620px) minmax(280px, 420px);
+    gap: 48px; align-items: center;
+  }
+  .hero-inner { max-width: 640px; }
   .hero h1 {
     font-size: clamp(34px, 5.4vw, 54px); line-height: 1.06; font-weight: 700;
     letter-spacing: -.01em; margin-top: 14px;
@@ -90,6 +103,45 @@
   }
   .hero p.lead {
     margin-top: 18px; font-size: 17px; color: var(--muted); max-width: 50ch;
+  }
+
+  /* App preview mockup: an illustrated stand-in for a screenshot, drawn in the
+     product's own palette rather than an actual screen-grab, so it never goes
+     stale or blurry when the real UI changes. */
+  .app-mock {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 18px;
+    box-shadow: var(--shadow); overflow: hidden; transform: rotate(1.5deg);
+  }
+  .app-mock:hover { transform: rotate(0deg); transition: transform .25s ease; }
+  .app-mock .chrome {
+    display: flex; align-items: center; gap: 6px; padding: 12px 14px;
+    background: var(--panel-2); border-bottom: 1px solid var(--border);
+  }
+  .app-mock .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+  .app-mock .chrome .url {
+    margin-left: 10px; font-size: 11.5px; color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px;
+  }
+  .app-mock .screen { padding: 20px; }
+  .app-mock .m-brand { display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 14px; }
+  .app-mock .m-brand .ic {
+    width: 22px; height: 22px; border-radius: 7px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .app-mock .m-head { margin-top: 16px; font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.2; }
+  .app-mock .m-sub { margin-top: 6px; font-size: 12px; color: var(--muted); }
+  .app-mock .m-input {
+    margin-top: 16px; height: 34px; border-radius: 8px; background: var(--panel-2);
+    border: 1px solid var(--border); display: flex; align-items: center; padding: 0 10px;
+    font-size: 11px; color: var(--muted);
+  }
+  .app-mock .m-row { display: flex; gap: 8px; margin-top: 10px; }
+  .app-mock .m-chip {
+    flex: 1; height: 30px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--border);
+  }
+  .app-mock .m-btn {
+    margin-top: 16px; height: 36px; border-radius: 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)); opacity: .92;
   }
   .hero-cta {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 30px;
@@ -119,7 +171,7 @@
     border-radius: 14px; padding: 12px 20px; text-align: center;
     transform: rotate(3deg); box-shadow: var(--shadow); min-width: 128px;
   }
-  .price-tag .amt { font-family: Georgia, serif; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .price-tag .amt { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .price-tag .unit { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
 
   .feat-list {
@@ -168,6 +220,11 @@
   footer .foot-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
   footer .foot-note { color: var(--muted); font-size: 13px; }
 
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+    .app-mock { max-width: 420px; transform: none; }
+  }
+
   @media (max-width: 600px) {
     header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
     .hero { padding: 34px 0 46px; }
@@ -180,6 +237,8 @@
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
 </style>
+</head>
+<body>
 
 <header>
   <div class="logo">
@@ -190,11 +249,29 @@
 
 <section class="hero">
   <div class="plate" aria-hidden="true"></div>
-  <div class="wrap hero-inner">
-    <p class="eyebrow">Digital tools para sa mga naghahanapbuhay online</p>
-    <h1>Gawa ka ng <em>kumikitang video</em> — kahit walang skills, walang malaking budget.</h1>
-    <p class="lead">Mga AI tool na sinubukan at ginagamit na — hindi teorya lang. Simulan mo sa unang app namin sa ibaba.</p>
-    <a class="hero-cta" href="#spotlight">Tingnan ang App →</a>
+  <div class="wrap hero-grid">
+    <div class="hero-inner">
+      <p class="eyebrow">Digital tools para sa mga naghahanapbuhay online</p>
+      <h1>Gawa ka ng <em>kumikitang video</em> — kahit walang skills, walang malaking budget.</h1>
+      <p class="lead">Mga AI tool na sinubukan at ginagamit na — hindi teorya lang. Simulan mo sa unang app namin sa ibaba.</p>
+      <a class="hero-cta" href="#spotlight">Tingnan ang App →</a>
+    </div>
+    <div class="app-mock" aria-hidden="true">
+      <div class="chrome">
+        <span class="dot" style="background:#ff6b6b"></span>
+        <span class="dot" style="background:#f5c451"></span>
+        <span class="dot" style="background:#4ade80"></span>
+        <span class="url">gawakwento.app</span>
+      </div>
+      <div class="screen">
+        <div class="m-brand"><span class="ic"></span> GawaKwento</div>
+        <div class="m-head">Script → Larawan → Boses</div>
+        <div class="m-sub">I-paste ang topic o link. Kumpleto na sa loob ng ilang segundo.</div>
+        <div class="m-input">https://tiktok.com/@...</div>
+        <div class="m-row"><span class="m-chip"></span><span class="m-chip"></span></div>
+        <div class="m-btn"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -269,3 +346,6 @@
     <p class="foot-note">TolTools · Gawa ng mga tol, para sa mga tol.</p>
   </div>
 </footer>
+
+</body>
+</html>
