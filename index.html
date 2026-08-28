@@ -1,0 +1,271 @@
+<title>TolTools</title>
+<style>
+  :root {
+    /* Dark is the default ground — matches the tool being sold, and the
+       late-night-grind energy of the audience. */
+    --bg: #14120f;
+    --panel: #1e1b17;
+    --panel-2: #262220;
+    --border: #3a342d;
+    --text: #f5efe4;
+    --muted: #b8ad9c;
+    --accent: #ff7a29;      /* jeepney mango-orange */
+    --accent-ink: #1a0f05;  /* text sitting on top of accent */
+    --accent-2: #1fc0ac;    /* Philippine-sea teal */
+    --accent-2-ink: #06211d;
+    --shadow: 0 20px 50px -20px rgba(0,0,0,.55);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #faf5ec;
+      --panel: #fffdf9;
+      --panel-2: #f3ecdf;
+      --border: #e4d9c5;
+      --text: #2a2420;
+      --muted: #6b6156;
+      --accent: #e8621a;
+      --accent-ink: #fff8f0;
+      --accent-2: #0e8f82;
+      --accent-2-ink: #f0fbf9;
+      --shadow: 0 20px 50px -24px rgba(60,40,20,.25);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #faf5ec;
+    --panel: #fffdf9;
+    --panel-2: #f3ecdf;
+    --border: #e4d9c5;
+    --text: #2a2420;
+    --muted: #6b6156;
+    --accent: #e8621a;
+    --accent-ink: #fff8f0;
+    --accent-2: #0e8f82;
+    --accent-2-ink: #f0fbf9;
+    --shadow: 0 20px 50px -24px rgba(60,40,20,.25);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; text-wrap: balance; margin: 0; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent-2);
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 24px; max-width: 1040px; margin: 0 auto;
+  }
+  .logo { display: flex; align-items: baseline; gap: 10px; }
+  .logo b {
+    font-family: Georgia, serif; font-size: 22px; font-weight: 700; letter-spacing: -.01em;
+  }
+  .logo b span { color: var(--accent); }
+  .logo small { color: var(--muted); font-size: 12.5px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: 54px 0 70px; overflow: hidden; }
+  .plate {
+    position: absolute; top: -60px; right: -120px; width: 520px; height: 520px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    opacity: .16; transform: rotate(-12deg); border-radius: 60px;
+    filter: blur(2px);
+  }
+  .hero-inner { position: relative; max-width: 640px; }
+  .hero h1 {
+    font-size: clamp(34px, 5.4vw, 54px); line-height: 1.06; font-weight: 700;
+    letter-spacing: -.01em; margin-top: 14px;
+  }
+  .hero h1 em {
+    font-style: normal; color: var(--accent);
+  }
+  .hero p.lead {
+    margin-top: 18px; font-size: 17px; color: var(--muted); max-width: 50ch;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 30px;
+    background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 15px;
+    padding: 14px 26px; border-radius: 999px; text-decoration: none; box-shadow: var(--shadow);
+    border: none; cursor: pointer;
+  }
+  .hero-cta:hover { filter: brightness(1.06); }
+
+  /* ---------- Product spotlight ---------- */
+  .spotlight { padding: 10px 0 30px; }
+  .spot-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+  .spot-head h2 { font-size: 15px; }
+
+  .product-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 22px;
+    padding: 40px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+  }
+  .product-top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap;
+  }
+  .product-name { font-size: clamp(26px, 4vw, 34px); font-weight: 700; }
+  .product-tag { color: var(--muted); font-size: 15.5px; margin-top: 8px; max-width: 46ch; }
+
+  .price-tag {
+    flex-shrink: 0; background: var(--accent-2); color: var(--accent-2-ink);
+    border-radius: 14px; padding: 12px 20px; text-align: center;
+    transform: rotate(3deg); box-shadow: var(--shadow); min-width: 128px;
+  }
+  .price-tag .amt { font-family: Georgia, serif; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .price-tag .unit { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+
+  .feat-list {
+    list-style: none; margin: 32px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px;
+  }
+  .feat-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .feat-check {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 7px; margin-top: 2px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat-check svg { width: 12px; height: 12px; }
+  .feat-check svg path { stroke: var(--accent); }
+  .feat-list b { display: block; font-size: 14.5px; }
+  .feat-list span { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+
+  .order-row {
+    margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .order-cta {
+    background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 15px;
+    padding: 14px 28px; border-radius: 999px; border: none; cursor: pointer; text-decoration: none;
+    display: inline-block;
+  }
+  .order-note { color: var(--muted); font-size: 13.5px; max-width: 40ch; }
+
+  /* ---------- Coming soon ---------- */
+  .soon { padding: 44px 0 20px; }
+  .soon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+  .ghost-card {
+    border: 1px dashed var(--border); border-radius: 16px; padding: 24px;
+    color: var(--muted); position: relative; min-height: 118px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .ghost-card .soon-badge {
+    align-self: flex-start; font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent-2); border: 1px solid var(--accent-2);
+    border-radius: 999px; padding: 3px 10px;
+  }
+  .ghost-card p { margin: 12px 0 0; font-size: 14px; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 50px 0 60px; border-top: 1px solid var(--border); margin-top: 40px; }
+  footer .foot-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+  footer .foot-note { color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 600px) {
+    header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .hero { padding: 34px 0 46px; }
+    .product-card { padding: 26px; border-radius: 18px; }
+    .price-tag { transform: rotate(0deg); }
+    .order-row { flex-direction: column; align-items: stretch; }
+    .order-cta { text-align: center; }
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+</style>
+
+<header>
+  <div class="logo">
+    <b>Tol<span>Tools</span></b>
+    <small>AI tools, gawa para sa grind mo</small>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="plate" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Digital tools para sa mga naghahanapbuhay online</p>
+    <h1>Gawa ka ng <em>kumikitang video</em> — kahit walang skills, walang malaking budget.</h1>
+    <p class="lead">Mga AI tool na sinubukan at ginagamit na — hindi teorya lang. Simulan mo sa unang app namin sa ibaba.</p>
+    <a class="hero-cta" href="#spotlight">Tingnan ang App →</a>
+  </div>
+</section>
+
+<section class="spotlight wrap" id="spotlight">
+  <div class="spot-head">
+    <h2 class="eyebrow">Unang Produkto sa TolTools</h2>
+  </div>
+
+  <div class="product-card">
+    <div class="product-top">
+      <div>
+        <div class="product-name">GawaKwento</div>
+        <p class="product-tag">Mula sa topic o video link, diretso na sa buong script, mga larawan, at boses — para sa faceless YTA/FBA content na kumikita.</p>
+      </div>
+      <div class="price-tag">
+        <div class="amt">₱599</div>
+        <div class="unit">Buong access</div>
+      </div>
+    </div>
+
+    <ul class="feat-list">
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Awtomatikong script writing</b><span>Bigyan mo lang ng topic o link — isusulat na niya buong script mo, may CTA pa sa gitna para di ka na mag-alala paano manawagan sa viewers.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Sari-saring art style</b><span>Pixar hanggang colorful stickman hanggang flat editorial look — pili ka lang, o i-match niya yung reference image mo.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Consistent na character</b><span>Pareho ang mukha, pareho ang itsura sa bawat eksena — walang mismatch mula umpisa hanggang dulo.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Naka-timing na mga larawan</b><span>Awtomatikong naka-sync ang bawat still sa haba ng bawat linya — kahit pa i-generate mo yung totoong boses.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>AI voiceover, isang click lang</b><span>Kahit gaano pa kahaba yung script mo, kaya niyang bumuo ng buong narration.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Hindi mawawala ang ginawa mo</b><span>Automatic na naseserve lahat ng session mo — pwede mo ulit buksan kahit kailan.</span></div>
+      </li>
+    </ul>
+
+    <div class="order-row">
+      <p class="order-note">Comment "GUSTO KO" o mag-message para umorder — babae, lalaki, sino man, kaya mo 'to, tol.</p>
+      <a class="order-cta" href="#">Order Ngayon — ₱599</a>
+    </div>
+  </div>
+</section>
+
+<section class="soon wrap">
+  <p class="eyebrow">Paparating pa</p>
+  <div class="soon-grid">
+    <div class="ghost-card">
+      <span class="soon-badge">Soon</span>
+      <p>Susunod na AI tool, dadagdag sa TolTools lineup.</p>
+    </div>
+    <div class="ghost-card">
+      <span class="soon-badge">Soon</span>
+      <p>Bagong app para sa ibang niche — abangan.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot-row">
+    <div class="logo"><b>Tol<span>Tools</span></b></div>
+    <p class="foot-note">TolTools · Gawa ng mga tol, para sa mga tol.</p>
+  </div>
+</footer>
