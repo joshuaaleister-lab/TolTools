@@ -163,17 +163,23 @@
     transform: translateX(-50%); border-radius: 50%;
     background: radial-gradient(circle, rgba(201,162,75,.30) 0%, rgba(201,162,75,0) 70%);
   }
-  .showcase-figure { position: relative; width: 220px; margin: 0 auto; }
+  .showcase-figure { position: relative; width: 300px; height: 300px; margin: 0 auto; }
+  .showcase-figure img {
+    width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%;
+    -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 86%);
+    mask-image: radial-gradient(circle, #000 58%, transparent 86%);
+    filter: brightness(1.08) contrast(1.05);
+  }
   .showcase-chip {
     position: absolute; display: flex; align-items: center; justify-content: center;
     width: 38px; height: 38px; border-radius: 10px; background: var(--panel);
     border: 1px solid var(--border); box-shadow: var(--shadow);
   }
   .showcase-chip svg { width: 18px; height: 18px; }
-  .chip-1 { top: 6px;   left: -46px; }
-  .chip-2 { top: 78px;  left: -70px; }
-  .chip-3 { top: 6px;   right: -46px; }
-  .chip-4 { top: 78px;  right: -70px; }
+  .chip-1 { top: 12px;  left: -58px; }
+  .chip-2 { top: 110px; left: -86px; }
+  .chip-3 { top: 12px;  right: -58px; }
+  .chip-4 { top: 110px; right: -86px; }
   .showcase-eyebrow {
     margin-top: 26px; font-size: 12px; font-weight: 700; letter-spacing: .18em;
     text-transform: uppercase; color: var(--accent-2);
@@ -342,21 +348,7 @@
   <div class="showcase-inner">
     <div class="showcase-glow" aria-hidden="true"></div>
     <div class="showcase-figure">
-      <svg viewBox="0 0 220 240" aria-hidden="true">
-        <defs>
-          <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#c9a24b"/>
-            <stop offset="100%" stop-color="#7d90a8"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="110" cy="220" rx="82" ry="10" fill="#000" opacity=".35"/>
-        <path d="M40 232 L60 170 Q66 150 90 150 H130 Q154 150 160 170 L180 232 Z" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
-        <path d="M70 168 Q110 190 150 168 L150 150 Q110 172 70 150 Z" fill="#0b0c0f"/>
-        <circle cx="110" cy="108" r="40" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
-        <path d="M74 100 Q110 60 146 100 Q150 78 110 66 Q70 78 74 100 Z" fill="#0b0c0f"/>
-        <path d="M60 150 Q40 165 34 200 Q32 212 44 214 Q54 214 58 202 Q64 176 78 158 Z" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
-        <circle cx="46" cy="210" r="7" fill="#0b0c0f" stroke="url(#rim)" stroke-width="1.5"/>
-      </svg>
+      <img src="assets/character.jpg" alt="Mysterious hooded figure representing the AI behind TolTools" width="768" height="768">
       <div class="showcase-chip chip-1" style="color:#1877f2">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
       </div>
