@@ -6,7 +6,7 @@
 <title>TolTools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     /* Charcoal-and-brass: a quieter, more expensive-feeling ground than the
@@ -151,6 +151,69 @@
   }
   .hero-cta:hover { filter: brightness(1.06); }
 
+  /* ---------- Showcase: illustrated character poster ---------- */
+  .showcase {
+    position: relative; margin: 10px 0 54px; padding: 64px 24px 44px; overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 0%, #21180a 0%, var(--bg) 62%);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .showcase-inner { max-width: 640px; margin: 0 auto; text-align: center; position: relative; }
+  .showcase-glow {
+    position: absolute; left: 50%; top: 18px; width: 360px; height: 360px;
+    transform: translateX(-50%); border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,162,75,.30) 0%, rgba(201,162,75,0) 70%);
+  }
+  .showcase-figure { position: relative; width: 220px; margin: 0 auto; }
+  .showcase-chip {
+    position: absolute; display: flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 10px; background: var(--panel);
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .showcase-chip svg { width: 18px; height: 18px; }
+  .chip-1 { top: 6px;   left: -46px; }
+  .chip-2 { top: 78px;  left: -70px; }
+  .chip-3 { top: 6px;   right: -46px; }
+  .chip-4 { top: 78px;  right: -70px; }
+  .showcase-eyebrow {
+    margin-top: 26px; font-size: 12px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent-2);
+  }
+  .showcase-word {
+    margin-top: 10px; font-family: 'Anton', 'Fraunces', sans-serif; font-weight: 400;
+    font-size: clamp(40px, 8vw, 64px); line-height: .95; letter-spacing: .01em;
+    color: var(--text); text-wrap: balance;
+  }
+  .showcase-word span { color: var(--accent); }
+  .showcase-tagline {
+    margin-top: 14px; font-size: 13px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .showcase-tagline b { color: var(--text); }
+  .showcase-feats {
+    margin-top: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 12px;
+    padding-top: 28px; border-top: 1px solid var(--border);
+  }
+  .showcase-feats div { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .showcase-feats .fi {
+    width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    background: var(--panel-2); border: 1px solid var(--border);
+  }
+  .showcase-feats .fi svg { width: 16px; height: 16px; stroke: var(--accent); }
+  .showcase-feats span { font-size: 11px; font-weight: 600; color: var(--muted); line-height: 1.3; }
+  .showcase-banner {
+    margin-top: 30px; display: inline-block; padding: 12px 26px; border: 1px solid var(--accent);
+    border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .showcase { padding: 48px 16px 34px; }
+    .showcase-feats { grid-template-columns: repeat(2, 1fr); row-gap: 22px; }
+    .chip-1 { left: -14px; }
+    .chip-2 { left: -30px; }
+    .chip-3 { right: -14px; }
+    .chip-4 { right: -30px; }
+  }
+
   /* ---------- Product spotlight ---------- */
   .spotlight { padding: 10px 0 30px; }
   .spot-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
@@ -261,10 +324,10 @@
         <span class="dot" style="background:#ff6b6b"></span>
         <span class="dot" style="background:#f5c451"></span>
         <span class="dot" style="background:#4ade80"></span>
-        <span class="url">gawakwento.app</span>
+        <span class="url">toltools.app</span>
       </div>
       <div class="screen">
-        <div class="m-brand"><span class="ic"></span> GawaKwento</div>
+        <div class="m-brand"><span class="ic"></span> TolTools</div>
         <div class="m-head">Script → Larawan → Boses</div>
         <div class="m-sub">I-paste ang topic o link. Kumpleto na sa loob ng ilang segundo.</div>
         <div class="m-input">https://tiktok.com/@...</div>
@@ -272,6 +335,63 @@
         <div class="m-btn"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="showcase">
+  <div class="showcase-inner">
+    <div class="showcase-glow" aria-hidden="true"></div>
+    <div class="showcase-figure">
+      <svg viewBox="0 0 220 240" aria-hidden="true">
+        <defs>
+          <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c9a24b"/>
+            <stop offset="100%" stop-color="#7d90a8"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="110" cy="220" rx="82" ry="10" fill="#000" opacity=".35"/>
+        <path d="M40 232 L60 170 Q66 150 90 150 H130 Q154 150 160 170 L180 232 Z" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
+        <path d="M70 168 Q110 190 150 168 L150 150 Q110 172 70 150 Z" fill="#0b0c0f"/>
+        <circle cx="110" cy="108" r="40" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
+        <path d="M74 100 Q110 60 146 100 Q150 78 110 66 Q70 78 74 100 Z" fill="#0b0c0f"/>
+        <path d="M60 150 Q40 165 34 200 Q32 212 44 214 Q54 214 58 202 Q64 176 78 158 Z" fill="#13141a" stroke="url(#rim)" stroke-width="1.5"/>
+        <circle cx="46" cy="210" r="7" fill="#0b0c0f" stroke="url(#rim)" stroke-width="1.5"/>
+      </svg>
+      <div class="showcase-chip chip-1" style="color:#1877f2">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+      </div>
+      <div class="showcase-chip chip-2" style="color:var(--text)">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.4 4.4 0 0 1-3-3.8h-3.1v13.4a2.6 2.6 0 1 1-1.9-2.5V9.6a5.7 5.7 0 1 0 5 5.7V9.9a7.4 7.4 0 0 0 4.3 1.4V8.2a4.4 4.4 0 0 1-1.3-2.4Z"/></svg>
+      </div>
+      <div class="showcase-chip chip-3" style="color:#e1306c">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </div>
+      <div class="showcase-chip chip-4" style="color:#ff0000">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.8 2.8 0 0 0-2-2C17.9 5 12 5 12 5s-5.9 0-7.6.3a2.8 2.8 0 0 0-2 2C2 8.8 2 12 2 12s0 3.2.4 4.7a2.8 2.8 0 0 0 2 2C6.1 19 12 19 12 19s5.9 0 7.6-.3a2.8 2.8 0 0 0 2-2C22 15.2 22 12 22 12ZM10 15.5v-7l6 3.5Z"/></svg>
+      </div>
+    </div>
+    <p class="showcase-eyebrow">Ang bagong ayos ng paggawa ng content</p>
+    <h2 class="showcase-word">TOL<span>TOOLS</span></h2>
+    <p class="showcase-tagline"><b>Gawa.</b> Post. <b>Kita.</b></p>
+    <div class="showcase-feats">
+      <div>
+        <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M4 5h16M8 5v14M16 5v14"/></svg></span>
+        <span>AI script<br>writing</span>
+      </div>
+      <div>
+        <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9c0-2 3-2 3 0s-3 2-3 4"/><circle cx="12" cy="17" r=".5"/></svg></span>
+        <span>Kahit anong<br>niche</span>
+      </div>
+      <div>
+        <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M4 17l5-4 4 3 3-2 4 3"/></svg></span>
+        <span>Gayahin ang<br>character</span>
+      </div>
+      <div>
+        <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg></span>
+        <span>AI<br>voiceover</span>
+      </div>
+    </div>
+    <div class="showcase-banner">Gawin mong kita ang AI</div>
   </div>
 </section>
 
@@ -283,7 +403,7 @@
   <div class="product-card">
     <div class="product-top">
       <div>
-        <div class="product-name">GawaKwento</div>
+        <div class="product-name">TolTools</div>
         <p class="product-tag">Perfect para sa YTA. Mula sa topic o video link, diretso na sa buong script, mga larawan, at boses — kahit anong niche, kayang-kaya, kasi kaya niyang gayahin ang character ng kahit kaninong reference image o screenshot.</p>
       </div>
       <div class="price-tag">
