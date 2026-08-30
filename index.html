@@ -269,13 +269,59 @@
   .price-tag .unit { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
 
   /* Real in-app screenshot inside a product card -- shows buyers what they
-     actually get, instead of asking them to take the feature list on faith. */
-  .product-shot {
-    display: block; width: 100%; margin: 26px 0 0; border-radius: 12px;
-    border: 1px solid var(--border); box-shadow: var(--shadow);
+     actually get, instead of asking them to take the feature list on faith.
+     Presented on a 3D stage that tilts toward the cursor, with an accent glow
+     bleeding out behind it so the shot reads as part of the page rather than
+     a rectangle pasted on top. */
+  .shot-stage {
+    position: relative; margin: 30px 0 0; perspective: 1100px;
+  }
+  .shot-stage::before {          /* soft accent glow bleeding out behind */
+    content: ''; position: absolute; inset: 6% 4%; z-index: 0; border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,211,238,.28), rgba(99,102,241,.14) 45%, transparent 72%);
+    filter: blur(46px); pointer-events: none;
+  }
+  .shot-3d {
+    position: relative; z-index: 1; border-radius: 14px; overflow: hidden;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s ease;
+    will-change: transform;
+    box-shadow: 0 20px 46px -20px rgba(0,0,0,.75),
+                0 0 0 1px rgba(255,255,255,.07) inset;
+  }
+  .shot-stage:hover .shot-3d {
+    transition-duration: .12s;   /* snappy while tracking, slow easing back */
+    box-shadow: 0 32px 70px -22px rgba(0,0,0,.8),
+                0 0 34px -6px rgba(34,211,238,.35),
+                0 0 0 1px rgba(255,255,255,.12) inset;
+  }
+  .shot-3d img { display: block; width: 100%; height: auto; }
+  .shot-3d .glare {              /* highlight that follows the cursor */
+    position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    transition: opacity .35s ease;
+    background: radial-gradient(circle at var(--gx,50%) var(--gy,50%),
+                rgba(255,255,255,.20), rgba(255,255,255,.05) 32%, transparent 60%);
+  }
+  .shot-stage:hover .shot-3d .glare { opacity: 1; }
+  .shot-3d .fade {               /* melts the bottom edge into the card */
+    position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, rgba(14,21,38,.55));
   }
   .shot-caption {
-    margin: 8px 0 0; font-size: 12.5px; color: var(--muted); text-align: center;
+    position: relative; margin: 14px 0 0; font-size: 12.5px;
+    color: var(--muted); text-align: center;
+  }
+  /* Tilt is decorative -- honour a reduced-motion preference, and don't try to
+     track a cursor that doesn't exist on touch screens. */
+  @media (prefers-reduced-motion: reduce) {
+    .shot-3d { transition: none; transform: none !important; }
+    .shot-3d .glare { display: none; }
+  }
+  @media (hover: none) {
+    .shot-3d { transform: none !important; }
+    .shot-3d .glare { display: none; }
   }
 
   .feat-list {
@@ -483,7 +529,13 @@
       <div>
         <div class="product-name">ClipForge v2</div>
         <p class="product-tag">Perfect para sa Whop clipping. I-upload lang ang mahabang podcast o stream — awtomatiko nang gagawa ng maraming viral-ready na clips, may captions na naka-burn, AI-generated na titles, at face tracking. Ito na ang gagawa ng trabaho habang ikaw ang kikita.</p>
-        <img class="product-shot" src="assets/clipforge-ui.jpg" alt="Ang loob ng ClipForge v2 — upload panel, preview, at effects controls" width="1400" height="658" loading="lazy">
+        <div class="shot-stage">
+          <div class="shot-3d" data-tilt>
+            <img src="assets/clipforge-ui.jpg" alt="Ang loob ng ClipForge v2 — upload panel, preview, at effects controls" width="1400" height="658" loading="lazy">
+            <span class="glare" aria-hidden="true"></span>
+            <span class="fade" aria-hidden="true"></span>
+          </div>
+        </div>
         <p class="shot-caption">Ito ang makikita mo sa loob — lahat ng kontrol nasa isang screen lang.</p>
       </div>
       <div class="price-tag">
@@ -532,7 +584,13 @@
       <div>
         <div class="product-name">Webnovel Studio</div>
         <p class="product-tag">Sumulat ng buong webnovel gamit ang AI — hanggang 1,000+ chapters, hindi nakakalimot sa storyline mo. May 10 sikat na story structure (Three-Act, Hero's Journey, Save the Cat, Kishōtenketsu, at iba pa) na awtomatikong susundan ng AI, base sa sarili mong premise — hindi kopya.</p>
-        <img class="product-shot" src="assets/webnovel-ui.jpg" alt="Ang loob ng Webnovel Studio — project picker, AI engine, at story setup" width="1400" height="850" loading="lazy">
+        <div class="shot-stage">
+          <div class="shot-3d" data-tilt>
+            <img src="assets/webnovel-ui.jpg" alt="Ang loob ng Webnovel Studio — project picker, AI engine, at story setup" width="1400" height="850" loading="lazy">
+            <span class="glare" aria-hidden="true"></span>
+            <span class="fade" aria-hidden="true"></span>
+          </div>
+        </div>
         <p class="shot-caption">Ito ang makikita mo sa loob — pumili ng engine, ilagay ang idea mo, sulat na.</p>
       </div>
       <div class="price-tag">
@@ -581,6 +639,43 @@
     <p class="foot-note">TolTools · Gawa ng mga tol, para sa mga tol.</p>
   </div>
 </footer>
+
+<script>
+/* Cursor-tracked 3D tilt for the product screenshots.
+   Skipped entirely on touch screens (no cursor to follow) and when the user
+   has asked for reduced motion -- the CSS also hard-disables the transform in
+   those cases, so the shot just sits flat and static. */
+(function () {
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!fine || still) return;
+
+  var MAX = 7;               // degrees; subtle enough to read as depth, not a gimmick
+  document.querySelectorAll('[data-tilt]').forEach(function (el) {
+    var frame = null;
+
+    el.parentElement.addEventListener('mousemove', function (e) {
+      if (frame) return;     // coalesce to one update per animation frame
+      frame = requestAnimationFrame(function () {
+        frame = null;
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;    // 0..1 across
+        var py = (e.clientY - r.top) / r.height;    // 0..1 down
+        el.style.setProperty('--ry', ((px - 0.5) * 2 * MAX).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', ((0.5 - py) * 2 * MAX).toFixed(2) + 'deg');
+        el.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+        el.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+      });
+    });
+
+    el.parentElement.addEventListener('mouseleave', function () {
+      if (frame) { cancelAnimationFrame(frame); frame = null; }
+      el.style.setProperty('--rx', '0deg');
+      el.style.setProperty('--ry', '0deg');
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
