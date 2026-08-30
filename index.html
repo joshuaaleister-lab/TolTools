@@ -253,8 +253,17 @@
 
   .price-tag {
     flex-shrink: 0; background: var(--accent-2); color: var(--accent-2-ink);
-    border-radius: 14px; padding: 12px 20px; text-align: center;
-    transform: rotate(3deg); box-shadow: var(--shadow); min-width: 128px;
+    border-radius: 14px; padding: 14px 20px 12px; text-align: center;
+    transform: rotate(3deg); box-shadow: var(--shadow); min-width: 128px; position: relative;
+  }
+  .price-tag .off {
+    position: absolute; top: -11px; right: -10px; background: #ff5470; color: #fff;
+    font-family: var(--font-body, inherit); font-size: 10.5px; font-weight: 800; letter-spacing: .03em;
+    padding: 3px 9px; border-radius: 999px; box-shadow: 0 4px 10px -2px rgba(0,0,0,.5);
+    transform: rotate(-8deg);
+  }
+  .price-tag .was {
+    font-size: 13px; text-decoration: line-through; opacity: .6; font-weight: 600;
   }
   .price-tag .amt { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .price-tag .unit { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
@@ -405,7 +414,7 @@
 
 <section class="spotlight wrap" id="spotlight">
   <div class="spot-head">
-    <h2 class="eyebrow">Unang Produkto sa TolTools</h2>
+    <h2 class="eyebrow">Mga Produkto sa TolTools</h2>
   </div>
 
   <div class="product-card">
@@ -415,6 +424,8 @@
         <p class="product-tag">Perfect para sa YTA. Mula sa topic o video link, diretso na sa buong script, mga larawan, at boses — kahit anong niche, kayang-kaya, kasi kaya niyang gayahin ang character ng kahit kaninong reference image o screenshot.</p>
       </div>
       <div class="price-tag">
+        <span class="off">50% OFF</span>
+        <div class="was">₱1,198</div>
         <div class="amt">₱599</div>
         <div class="unit">Buong access</div>
       </div>
@@ -456,15 +467,58 @@
       <a class="order-cta" href="https://m.me/61588608533988" target="_blank" rel="noopener">Order Ngayon — ₱599</a>
     </div>
   </div>
+
+  <div class="product-card" style="margin-top:28px">
+    <div class="product-top">
+      <div>
+        <div class="product-name">ClipForge v2</div>
+        <p class="product-tag">Perfect para sa Whop clipping. I-upload lang ang mahabang podcast o stream — awtomatiko nang gagawa ng maraming viral-ready na clips, may captions na naka-burn, AI-generated na titles, at face tracking. Ito na ang gagawa ng trabaho habang ikaw ang kikita.</p>
+      </div>
+      <div class="price-tag">
+        <span class="off">50% OFF</span>
+        <div class="was">₱1,398</div>
+        <div class="amt">₱699</div>
+        <div class="unit">Buong access</div>
+      </div>
+    </div>
+
+    <ul class="feat-list">
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Awtomatikong pag-clip</b><span>Mag-upload ng mahabang video — hahatiin niya agad ito sa maiikling clips na ready i-post.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Naka-burn na captions</b><span>Iba't-ibang style (Box, Highlight), kulay, laki, at posisyon — pili ka lang.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>AI viral titles</b><span>Awtomatikong gumagawa ng pang-viral na title para sa bawat clip.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Face tracking</b><span>Awtomatikong sinusundan ng frame ang mukha ng nagsasalita kahit gumagalaw sila.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Perfect para sa Whop clipping</b><span>Kumita sa pag-clip ng content ng ibang creators sa mga clipping campaign at affiliate program.</span></div>
+      </li>
+      <li>
+        <span class="feat-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>Direktang i-download</b><span>Isang click lang, MP4 agad — ready na i-post kahit saan.</span></div>
+      </li>
+    </ul>
+
+    <div class="order-row">
+      <p class="order-note">I-click lang para direkta kang maka-message sa amin sa Facebook — para sa mga gustong mag-Whop clipping o ibang clipping campaigns.</p>
+      <a class="order-cta" href="https://m.me/61588608533988" target="_blank" rel="noopener">Order Ngayon — ₱699</a>
+    </div>
+  </div>
 </section>
 
 <section class="soon wrap">
   <p class="eyebrow">Paparating pa</p>
   <div class="soon-grid">
-    <div class="ghost-card">
-      <span class="soon-badge">Soon</span>
-      <p>Susunod na AI tool, dadagdag sa TolTools lineup.</p>
-    </div>
     <div class="ghost-card">
       <span class="soon-badge">Soon</span>
       <p>Bagong app para sa ibang niche — abangan.</p>
