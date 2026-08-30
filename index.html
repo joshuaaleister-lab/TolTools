@@ -155,7 +155,10 @@
   .app-mock .m-row { display: flex; gap: 8px; margin-top: 10px; }
   .app-mock .m-chip {
     flex: 1; height: 30px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-size: 10.5px; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 500;
   }
+  .app-mock .m-chip svg { width: 11px; height: 11px; flex: none; }
   .app-mock .m-btn {
     margin-top: 16px; height: 36px; border-radius: 8px;
     background: linear-gradient(90deg, var(--accent), var(--accent-2)); opacity: .92;
@@ -352,7 +355,10 @@
           <div class="m-head">Script → Larawan → Boses</div>
           <div class="m-sub">I-paste ang topic o link. Kumpleto na sa loob ng ilang segundo.</div>
           <div class="m-input">https://tiktok.com/@...</div>
-          <div class="m-row"><span class="m-chip"></span><span class="m-chip"></span></div>
+          <div class="m-row">
+            <span class="m-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>Pixar style</span>
+            <span class="m-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>4 eksena</span>
+          </div>
           <div class="m-btn"></div>
         </div>
       </div>
