@@ -246,6 +246,25 @@
   }
   .hero-cta:hover { filter: brightness(1.06); }
 
+  /* ---------- Demo video ---------- */
+  .demo { position: relative; padding: 20px 24px 56px; text-align: center; }
+  .demo-glow {
+    position: absolute; left: 50%; top: 10%; width: 480px; height: 480px; z-index: 0;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(34,211,238,.20), rgba(99,102,241,.12) 45%, transparent 72%);
+    filter: blur(60px);
+  }
+  .demo-inner { position: relative; z-index: 1; }
+  .demo-title {
+    margin-top: 8px; font-size: clamp(22px, 3vw, 30px); font-weight: 700;
+  }
+  .demo-player {
+    position: relative; max-width: 300px; margin: 30px auto 0; border-radius: 26px;
+    overflow: hidden; background: #000; border: 1px solid var(--border);
+    box-shadow: 0 30px 70px -24px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.05) inset;
+  }
+  .demo-player video { display: block; width: 100%; aspect-ratio: 9/16; background: #000; }
+
   /* ---------- Showcase: modern platform hero ---------- */
   .showcase {
     position: relative; margin: 10px 0 54px; padding: 74px 24px 60px; overflow: hidden;
@@ -509,6 +528,21 @@
         <span class="fdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg></span>
         <div><b>AI boses</b><span>isang click lang</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo wrap" id="demo">
+  <div class="demo-glow" aria-hidden="true"></div>
+  <div class="demo-inner">
+    <p class="eyebrow" style="text-align:center">Panoorin muna</p>
+    <h2 class="demo-title">Ganito talaga siya gumagana</h2>
+    <div class="demo-player">
+      <video controls preload="metadata" playsinline
+             poster="assets/ad-poster.jpg"
+             src="assets/toltools-ad.mp4">
+        Hindi supported ng browser mo ang video. <a href="assets/toltools-ad.mp4">I-download na lang</a>.
+      </video>
     </div>
   </div>
 </section>
