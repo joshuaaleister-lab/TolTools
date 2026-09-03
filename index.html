@@ -107,67 +107,153 @@
     margin-top: 16px; font-size: 15.5px; color: var(--muted); max-width: 50ch;
   }
 
-  /* App preview mockup: an illustrated stand-in for a screenshot, drawn in the
-     product's own palette rather than an actual screen-grab, so it never goes
-     stale or blurry when the real UI changes. It's wrapped in a real link (to
-     the product section) since a browser-chrome mockup reads as clickable --
-     leaving it inert felt broken. A soft glow behind it ties it into the page
-     instead of sitting on the flat background like a pasted-on sticker. */
-  .app-mock-wrap { position: relative; display: block; text-decoration: none; color: inherit; }
-  .app-mock-glow {
-    position: absolute; inset: -30px; border-radius: 40px; z-index: 0;
-    background: radial-gradient(circle, rgba(34,211,238,.25), transparent 70%);
-    filter: blur(20px); pointer-events: none;
+  /* Hero visual: a fanned stack of "generated scene" cards standing in for a
+     screenshot, echoing the app's own script -> scenes pipeline rather than a
+     borrowed 3D-render aesthetic. Two blurred back cards give it depth, a
+     real crop of the product screenshot sits in the top card so it isn't
+     just decoration, and floating proof badges carry real numbers used
+     elsewhere on this page. Tilts toward the cursor like the product shots
+     below, reusing the same [data-tilt] script. */
+  .hero-stack { position: relative; perspective: 1200px; padding: 56px 26px 46px; }
+  .stack-glow {
+    position: absolute; inset: -10% -6%; z-index: 0; border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,211,238,.30), rgba(99,102,241,.16) 45%, transparent 72%);
+    filter: blur(54px); pointer-events: none;
   }
-  .app-mock {
-    position: relative; z-index: 1;
-    background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border); border-radius: 18px;
-    box-shadow: 0 20px 50px -20px rgba(34,211,238,.3), 0 10px 30px -12px rgba(0,0,0,.5);
-    overflow: hidden; transition: transform .25s ease, box-shadow .25s ease;
+  .stack-ring {
+    position: absolute; left: 50%; top: 52%; width: 360px; height: 360px; z-index: 0;
+    transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
+    background: conic-gradient(from 0deg, rgba(34,211,238,.5), rgba(99,102,241,.5), rgba(255,84,112,.4), rgba(34,211,238,.5));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    opacity: .55; animation: spin 18s linear infinite;
   }
-  .app-mock-wrap:hover .app-mock {
-    transform: translateY(-3px);
-    box-shadow: 0 26px 60px -20px rgba(34,211,238,.4), 0 14px 34px -12px rgba(0,0,0,.55);
+  @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+  .stack-card {
+    position: absolute; z-index: 1; width: 78%; aspect-ratio: 4/5; left: 11%;
+    border-radius: 20px; background: var(--panel-2); border: 1px solid var(--border);
+    box-shadow: 0 20px 40px -22px rgba(0,0,0,.7);
   }
-  .app-mock .chrome {
-    display: flex; align-items: center; gap: 6px; padding: 12px 14px;
-    background: var(--panel-2); border-bottom: 1px solid var(--border);
+  .stack-card.back {
+    top: 6%; transform: rotate(-9deg); opacity: .7;
+    background: linear-gradient(160deg, var(--panel-2), var(--panel));
+    border-color: rgba(34,211,238,.22);
   }
-  .app-mock .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
-  .app-mock .chrome .url {
-    margin-left: 10px; font-size: 11.5px; color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace;
-    background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px;
+  .stack-card.mid {
+    top: 3%; transform: rotate(5deg); opacity: .85;
+    background: linear-gradient(160deg, var(--panel-2), var(--panel));
+    border-color: rgba(99,102,241,.28);
   }
-  .app-mock .screen { padding: 20px; }
-  .app-mock .m-brand { display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 14px; }
-  .app-mock .m-brand .ic {
-    width: 22px; height: 22px; border-radius: 7px; flex-shrink: 0;
+  .stack-frame {
+    display: block; text-decoration: none; color: inherit;
+    position: relative; z-index: 2; width: 78%; margin: 0 auto; border-radius: 20px;
+    overflow: hidden; transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s ease;
+    background: var(--panel); border: 1px solid var(--border);
+    box-shadow: 0 26px 60px -20px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.06) inset;
+    will-change: transform;
+  }
+  .hero-stack:hover .stack-frame {
+    transition-duration: .12s;
+    box-shadow: 0 34px 74px -22px rgba(0,0,0,.8), 0 0 36px -6px rgba(34,211,238,.4),
+                0 0 0 1px rgba(255,255,255,.1) inset;
+  }
+  .stack-frame .frame-top {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 10px 14px; background: var(--panel-2); border-bottom: 1px solid var(--border);
+  }
+  .stack-frame .frame-top .live {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted);
+  }
+  .stack-frame .frame-top .live i {
+    width: 7px; height: 7px; border-radius: 50%; background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74,222,128,.2);
+  }
+  .stack-frame .frame-top .n { font-size: 10.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  /* Illustrated stand-in for a generated scene image (not a real screenshot --
+     an actual UI capture zoomed into a card this size just reads as noise).
+     A dark treeline silhouette under a moonlit gradient sky, matching the
+     scene's own caption below it. */
+  .stack-frame .frame-art {
+    position: relative; aspect-ratio: 16/11; overflow: hidden;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(234,242,251,.9), rgba(234,242,251,.15) 5%, transparent 6%),
+      radial-gradient(ellipse at 50% 15%, rgba(99,102,241,.35), transparent 60%),
+      linear-gradient(180deg, #0b1730 0%, #0a1226 45%, #060a16 100%);
+  }
+  .stack-frame .frame-art::before, .stack-frame .frame-art::after {
+    content: ''; position: absolute; left: -4%; right: -4%; bottom: -2%; height: 58%;
+    background-repeat: no-repeat; background-position: bottom;
+  }
+  .stack-frame .frame-art::before {
+    background-image: linear-gradient(180deg, transparent, rgba(6,10,22,.4) 90%);
+    -webkit-mask-image: repeating-linear-gradient(100deg, #000 0 3%, transparent 3% 5%);
+            mask-image: repeating-linear-gradient(100deg, #000 0 3%, transparent 3% 5%);
+    background-color: #0d1424; height: 44%; bottom: -1%;
+  }
+  .stack-frame .frame-art::after {
+    background-color: #070c19; height: 30%;
+    -webkit-mask-image: repeating-linear-gradient(96deg, #000 0 4%, transparent 4% 7%);
+            mask-image: repeating-linear-gradient(96deg, #000 0 4%, transparent 4% 7%);
+  }
+  .stack-frame .frame-caption {
+    padding: 12px 14px 14px; font-size: 12px; color: var(--muted); font-style: italic;
+    border-top: 1px solid var(--border);
+  }
+  .stack-frame .glare {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
+    background: radial-gradient(circle at var(--gx,50%) var(--gy,50%),
+                rgba(255,255,255,.18), rgba(255,255,255,.04) 32%, transparent 60%);
+  }
+  .hero-stack:hover .stack-frame .glare { opacity: 1; }
+  .float-badge {
+    position: absolute; z-index: 3; display: flex; align-items: center; gap: 7px;
+    background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border); border-radius: 999px; padding: 9px 14px 9px 10px;
+    box-shadow: var(--shadow); font-size: 12px; font-weight: 700;
+    animation: float 5s ease-in-out infinite;
+  }
+  .float-badge .fdot {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  }
-  .app-mock .m-head { margin-top: 16px; font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.2; }
-  .app-mock .m-sub { margin-top: 6px; font-size: 12px; color: var(--muted); }
-  .app-mock .m-input {
-    margin-top: 16px; height: 34px; border-radius: 8px; background: var(--panel-2);
-    border: 1px solid var(--border); display: flex; align-items: center; padding: 0 10px;
-    font-size: 11px; color: var(--muted);
-  }
-  .app-mock .m-row { display: flex; gap: 8px; margin-top: 10px; }
-  .app-mock .m-chip {
-    flex: 1; height: 30px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; gap: 5px;
-    font-size: 10.5px; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 500;
-  }
-  .app-mock .m-chip svg { width: 11px; height: 11px; flex: none; }
-  .app-mock .m-btn {
-    /* This is the call-to-action inside the product mockup. It shipped as an
-       empty gradient bar, which reads as an unfinished page rather than a
-       screenshot of a working app -- so it needs its label. */
-    margin-top: 16px; height: 36px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(90deg, var(--accent), var(--accent-2)); opacity: .92;
-    color: var(--accent-ink); font-weight: 700; font-size: 13px; letter-spacing: .01em;
   }
+  .float-badge .fdot svg { width: 13px; height: 13px; stroke: var(--accent-ink); }
+  .float-badge b { font-family: 'Fraunces', Georgia, serif; font-size: 14px; }
+  .float-badge span { display: block; color: var(--muted); font-weight: 500; font-size: 10.5px; }
+  .float-badge.f1 { top: -6%; right: -2%; animation-delay: .3s; }
+  .float-badge.f2 { bottom: -8%; left: -4%; animation-delay: 1.6s; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .stack-frame { transition: none; transform: none !important; }
+    .stack-frame .glare { display: none; }
+    .stack-ring { animation: none; }
+    .float-badge { animation: none; }
+  }
+  @media (hover: none) {
+    .stack-frame { transform: none !important; }
+    .stack-frame .glare { display: none; }
+  }
+  @media (max-width: 860px) {
+    .float-badge { padding: 7px 12px 7px 8px; font-size: 11px; }
+    .float-badge b { font-size: 12.5px; }
+  }
+  @media (max-width: 480px) {
+    .float-badge.f1 { right: 0; }
+    .float-badge.f2 { left: 0; }
+  }
+
+  /* ---------- Hero stats ---------- */
+  .stat-row { display: flex; gap: 28px; margin-top: 28px; flex-wrap: wrap; }
+  .stat-row .stat b {
+    display: block; font-family: 'Fraunces', Georgia, serif; font-size: 26px; font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat-row .stat span { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+
   .hero-cta {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 30px;
     background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: var(--accent-ink); font-weight: 700; font-size: 15px;
@@ -410,29 +496,35 @@
       <h1>Gawa ka ng <em>kumikitang video</em> — kahit walang skills, walang malaking budget.</h1>
       <p class="lead">Tama na 'yang kaka-"paano po ba 'to?" — dito ka na. Mga AI tool na sinubukan at ginagamit na, hindi teorya lang. Kahit anong niche mo, kahit kaninong character gusto mong gayahin — kaya nito. Simulan mo sa unang app namin sa ibaba.</p>
       <a class="hero-cta" href="#spotlight">Tingnan ang App →</a>
-    </div>
-    <a class="app-mock-wrap" href="#spotlight" aria-label="Tingnan ang app">
-      <div class="app-mock-glow" aria-hidden="true"></div>
-      <div class="app-mock">
-        <div class="chrome">
-          <span class="dot" style="background:#ff6b6b"></span>
-          <span class="dot" style="background:#f5c451"></span>
-          <span class="dot" style="background:#4ade80"></span>
-          <span class="url">toltools.app</span>
-        </div>
-        <div class="screen">
-          <div class="m-brand"><span class="ic"></span> TolTools</div>
-          <div class="m-head">Script → Larawan → Boses</div>
-          <div class="m-sub">I-paste ang topic o link. Kumpleto na sa loob ng ilang segundo.</div>
-          <div class="m-input">https://tiktok.com/@...</div>
-          <div class="m-row">
-            <span class="m-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>Pixar style</span>
-            <span class="m-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>4 eksena</span>
-          </div>
-          <div class="m-btn">Gumawa ng script →</div>
-        </div>
+      <div class="stat-row">
+        <div class="stat"><b>3</b><span>Apps na ready</span></div>
+        <div class="stat"><b>20+</b><span>Art styles</span></div>
+        <div class="stat"><b>5</b><span>Libreng AI engine</span></div>
       </div>
-    </a>
+    </div>
+    <div class="hero-stack">
+      <div class="stack-glow" aria-hidden="true"></div>
+      <div class="stack-ring" aria-hidden="true"></div>
+      <div class="stack-card back" aria-hidden="true"></div>
+      <div class="stack-card mid" aria-hidden="true"></div>
+      <a class="stack-frame" data-tilt href="#spotlight" aria-label="Tingnan ang app">
+        <div class="frame-top">
+          <span class="live"><i></i> Sunod-sunod na larawan</span>
+          <span class="n">Scene 05 / 12</span>
+        </div>
+        <div class="frame-art" role="img" aria-label="Isang na-generate na eksena mula sa TolTools"></div>
+        <div class="frame-caption">"...you become, for a moment, an animal listening for something in the trees."</div>
+        <span class="glare" aria-hidden="true"></span>
+      </a>
+      <div class="float-badge f1">
+        <span class="fdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+        <div><b>87 larawan</b><span>isang script, isang pindot</span></div>
+      </div>
+      <div class="float-badge f2">
+        <span class="fdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg></span>
+        <div><b>AI boses</b><span>isang click lang</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
